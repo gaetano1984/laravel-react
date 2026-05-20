@@ -2,6 +2,7 @@ import { useState, Component } from "react";
 import Button from "@/components/Button";
 import FormGroup from "@/Components/FormGroup";
 import {z} from "zod";
+import axios from "axios";
 
 //class Login extends Component{
 export default function Login(){
@@ -16,14 +17,19 @@ export default function Login(){
             [name]: value
         }));
     };
-    const login = () => {
-        console.log("login");
+    const login = (e) => {
         try{
             const data = z.object({
                 username: z.string().min(1, "Username is required"),
                 password: z.string().min(1, "Password is required")
             }).parse(form); 
             console.log(data);
+            axios.post("/api/login", data).then((res) => {
+                console.log(res);
+            }).catch((err) => {
+                let msg = err.response.data.message;
+                alert(msg);
+            });
         }
         catch(e){
             if(e instanceof z.ZodError){
