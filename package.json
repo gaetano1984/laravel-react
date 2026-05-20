@@ -26,6 +26,7 @@
         "react-dom": "^19.2.6",
         "react-swal": "^4.0.0",
         "sweetalert": "^2.1.2",
-        "sweetalert2": "^11.26.24"
+        "sweetalert2": "^11.26.24",
+        "zod": "^4.4.3"
     }
 }
