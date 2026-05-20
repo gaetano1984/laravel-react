@@ -2,4 +2,6 @@ vendor/
 node_modules/
 .gitignore
 storage/framework/sessions
+storage/framework/cache
+storage/framework/views
 storage/logs/laravel.log
