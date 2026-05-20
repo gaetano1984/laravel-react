@@ -23,13 +23,12 @@ export default function Login(){
                 username: z.string().min(1, "Username is required"),
                 password: z.string().min(1, "Password is required")
             }).parse(form); 
-            console.log(data);
-            axios.post("/api/login", data).then((res) => {
-                console.log(res);
-            }).catch((err) => {
-                let msg = err.response.data.message;
-                alert(msg);
-            });
+            axios.post('api/login', data)
+                .then((success) => {
+                    sessionStorage.setItem('token', success.data.token)
+                })
+                .catch((e) => console.log(e.response.data))
+            ;
         }
         catch(e){
             if(e instanceof z.ZodError){

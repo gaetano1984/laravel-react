@@ -9,30 +9,21 @@ class AuthController extends Controller
 {
     public function login(Request $request){
         $request->validate([
-            "username" => "required|email",
-            "password" => "required"
+            'username' => 'required|email',
+            'password' => 'required'
         ]);
 
-        try{
-            $user = User::where("email", $request->email)->first();
-
-            if(!$user || !\Hash::check($request->password, $user->password)){
-                return response()->json([
-                    "message" => "Invalid credentials"
-                ], 401);
-            }
-
-            $token = $user->createToken("auth_token")->plainTextToken;
-
-            return response()->json([
-                "access_token" => $token,
-                "token_type" => "Bearer"
-            ]);
+        $u = User::where('email', $request->get('username'))->first();
+        if(!$u){
+            return response()->json(['ko' => 'user not found'], 401);
         }
-        catch(\Exception $e){
-            return response()->json([
-                "message" => "User not found"
-            ], 404);
+
+        if(\Hash::check($request->get('password'), $u->password)==FALSE){
+            return response()->json(['ko' => 'user not found'], 401);
         }
+
+        $token = $u->createToken('auth_token')->plainTextToken;
+
+        return response()->json(['ok' => 'user found', 'token' => $token], 200);
     }
 }
