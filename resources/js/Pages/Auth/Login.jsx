@@ -1,8 +1,7 @@
 import { useState, Component } from "react";
-import Input from "@/Components/Input";
-import Label from "@/components/Label";
 import Button from "@/components/Button";
 import FormGroup from "@/Components/FormGroup";
+import {z} from "zod";
 
 //class Login extends Component{
 export default function Login(){
@@ -19,6 +18,19 @@ export default function Login(){
     };
     const login = () => {
         console.log("login");
+        try{
+            const data = z.object({
+                username: z.string().min(1, "Username is required"),
+                password: z.string().min(1, "Password is required")
+            }).parse(form); 
+            console.log(data);
+        }
+        catch(e){
+            if(e instanceof z.ZodError){
+                let msg = e.issues.map((err) => err.message).join(", ");
+                alert(msg);
+            }
+        }        
     };
     return (
         <div>
@@ -32,7 +44,7 @@ export default function Login(){
                         <FormGroup label="password" type="password" name="password" options="" onChange={handleChange}></FormGroup>
                         <div className="p-4">
                             <div className="flex items-center gap-4 gap-">
-                                <Button className="bg-blue-400 text-white p-4 pt-2 pb-2 rounded-4xl w-32 m-auto" text="Login" />
+                                <Button className="bg-blue-400 text-white p-4 pt-2 pb-2 rounded-4xl w-32 m-auto" text="Login" onClick={login}/>
                             </div>
                         </div>
                     </div>                    
