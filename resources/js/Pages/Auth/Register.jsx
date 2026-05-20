@@ -44,7 +44,7 @@ export default function Register(){
                             <FormGroup label="cognome" type="input" name="cognome" onChange={handleChange}/>                       
                         </fieldset>
                     </div>
-                    <div className="pl-4 pr-4 pt-4 pb-4">
+                    <div className="p-4">
                         <div className="flex items-center gap-4 gap-">
                             <Button className="bg-blue-400 text-white p-4 pt-2 pb-2 rounded-4xl w-32 m-auto" text="Register" />
                         </div>
