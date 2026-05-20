@@ -1,6 +1,5 @@
 vendor/
 node_modules/
-storage/framework/sessions/LchYKyhBlep2SuHe6geWvwQYg4el9jgHb14oidMU
 .gitignore
-storage/framework/sessions/Q4YpzGIvKk3gXr9ETDO0QYCtPYKYpqD5RqFbVAih
+storage/framework/sessions
 storage/logs/laravel.log
