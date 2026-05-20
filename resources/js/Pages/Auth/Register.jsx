@@ -25,7 +25,11 @@ export default function Register(){
             <div className="flex items-center justify-center h-screen">
                 <div className="w-full max-w-4xl border border-gray-300 rounded-lg">
                     <div className="bg-blue-300 p-2 text-center font-semibold">
-                        Register
+                        Register {form.type==='admin' && (
+                            <span>Admin</span>
+                        )}{form.type==='utente' && (
+                            <span>Utente</span>
+                        )}
                     </div>
                     <div className="grid grid-cols-1 gap-4 p-2">
                         <fieldset className="w-full border border-gray-300 rounded-lg p-4 grid grid-cols-1 md:grid-cols-2">
