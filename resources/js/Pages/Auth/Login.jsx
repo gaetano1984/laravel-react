@@ -23,7 +23,7 @@ export default function Login(){
                 username: z.string().min(1, "Username is required"),
                 password: z.string().min(1, "Password is required")
             }).parse(form); 
-            axios.post('api/login', data)
+            axios.post('api/user/login', data)
                 .then((success) => {
                     sessionStorage.setItem('token', success.data.token)
                 })

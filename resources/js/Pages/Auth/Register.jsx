@@ -17,6 +17,18 @@ export default function Register(){
             [name]: value
         }));
     };
+    const registerUser = () => {
+        axios.post('api/user/register', form)
+        .then((res) => {
+            console.log(res);
+            let msg = res.data.ok || "User registered successfully";
+            alert(msg); 
+        })
+        .catch((err) => {
+            let msg = err.response.data.ko || "An error occurred";
+            alert(msg);
+        });
+    }
     useEffect(() => {
         console.log(form);
     }, [form]);
@@ -46,7 +58,7 @@ export default function Register(){
                     </div>
                     <div className="p-4">
                         <div className="flex items-center gap-4 gap-">
-                            <Button className="bg-blue-400 text-white p-4 pt-2 pb-2 rounded-4xl w-32 m-auto" text="Register" />
+                            <Button className="bg-blue-400 text-white p-4 pt-2 pb-2 rounded-4xl w-32 m-auto" onClick={registerUser} text="Register" />
                         </div>
                     </div>
                 </div>

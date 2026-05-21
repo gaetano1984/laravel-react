@@ -7,6 +7,24 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
+    public function register(Request $request){
+        $request->validate([
+            'username' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        $check = User::where('email', $request->get('username'))->first();
+        if($check){
+            return response()->json(['ko' => 'user already exists'], 401);  
+        }
+        $u = new User();
+        $u->email = $request->get('username');
+        $u->name  = $request->get('nome');
+        $u->password = \Hash::make($request->get('password'));
+        $u->save();
+
+        return response()->json(['ok' => 'user created'], 200);
+    }
     public function login(Request $request){
         $request->validate([
             'username' => 'required|email',
