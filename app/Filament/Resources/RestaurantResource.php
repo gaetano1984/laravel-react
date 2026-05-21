@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\Column;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
+use Filament\Forms\Components\Select;
 
 class RestaurantResource extends Resource
 {
@@ -34,7 +35,9 @@ class RestaurantResource extends Resource
                     TextInput::make('city')->label('Comune'),
                     TextInput::make('address')->label('indirizzo'),
                     TextInput::make('CAP')->label('CAP'),
-                    TextInput::make('type')->label('Tipo'),
+                    Select::make('type')->options([
+                        'pizzeria', 'trattoria', 'osteria', 'ristorante'
+                    ])
                 ])
             ]);
     }
