@@ -37,5 +37,8 @@ Route::middleware('auth')->group(function () {
 
 Route::get('login', fn() => Inertia::render('Login'));
 Route::get('register', fn() => Inertia::render('Register'));
+Route::group(['prefix' => 'restaurants'], function () {
+    Route::get('list', fn() => Inertia::render('Restaurants/List'));
+});
 
 require __DIR__.'/auth.php';

@@ -22,3 +22,6 @@ Route::group(['prefix' => 'user'], function () {
     Route::post('login', [\App\Http\Controllers\AuthController::class, "login"]);
     Route::post('register', [\App\Http\Controllers\AuthController::class, "register"]);
 });
+Route::group(['prefix' => 'restaurants', 'middleware' => 'auth:sanctum'], function () {
+    Route::get('list', [\App\Http\Controllers\RestaurantController::class, "list"]);
+});

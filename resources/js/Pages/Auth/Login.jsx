@@ -25,7 +25,8 @@ export default function Login(){
             }).parse(form); 
             axios.post('api/user/login', data)
                 .then((success) => {
-                    sessionStorage.setItem('token', success.data.token)
+                    sessionStorage.setItem('token', success.data.token);
+                    window.location.href = "/restaurants/list";
                 })
                 .catch((e) => console.log(e.response.data))
             ;
