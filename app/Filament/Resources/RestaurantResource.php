@@ -30,11 +30,11 @@ class RestaurantResource extends Resource
             ->schema([
                 //
                 Fieldset::make('Anagrafica')->schema([
-                    TextInput::make('name'),
-                    TextInput::make('city'),
-                    TextInput::make('address'),
-                    TextInput::make('CAP'),
-                    TextInput::make('type'),
+                    TextInput::make('name')->label('Rag. Sociale'),
+                    TextInput::make('city')->label('Comune'),
+                    TextInput::make('address')->label('indirizzo'),
+                    TextInput::make('CAP')->label('CAP'),
+                    TextInput::make('type')->label('Tipo'),
                 ])
             ]);
     }

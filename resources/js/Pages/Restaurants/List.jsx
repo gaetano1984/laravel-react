@@ -43,7 +43,7 @@ export default function List(){
                                             <div className="text-sm font-light">
                                                 {restaurant.address}, {restaurant.city} - {restaurant.CAP}
                                             </div>
-                                            <div className="center mt-0">
+                                            <div className="text-center mt-0">
                                                 <Button className="bg-blue-400 text-white p-2 rounded-4xl w-32 mt-4" text="Prenota" onClick={() => alert("Funzionalità in sviluppo")} />
                                             </div>
                                         </div>
