@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RestaurantController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -39,6 +40,8 @@ Route::get('login', fn() => Inertia::render('Login'));
 Route::get('register', fn() => Inertia::render('Register'));
 Route::group(['prefix' => 'restaurants'], function () {
     Route::get('list', fn() => Inertia::render('Restaurants/List'));
+    /* Route::get('{id}', fn() => Inertia::render('Restaurants/[id]', ['nome' => 'pippo']))->where('id', '[0-9]'); */
+    Route::get('{id}', [RestaurantController::class, 'info'])->where('id', '[0-9]');
 });
 
 require __DIR__.'/auth.php';

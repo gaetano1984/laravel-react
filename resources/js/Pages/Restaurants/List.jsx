@@ -6,6 +6,9 @@ import axios from "axios";
 
 export default function List(){
     const [restaurants, setRestaurant] = useState([]);
+    const redirectRestaurant = (id) => {
+        window.location.href = "/restaurants/"+id;
+    }
     useEffect(() => {
         axios.get('/api/restaurants/list')
         .then((res) => {
@@ -26,7 +29,7 @@ export default function List(){
                             </div>                            
                         ) : (
                             restaurants.map((restaurant) => (
-                                <div className="bg-white border border-gray-300 rounded-lg p-2">
+                                <div className="bg-white border border-gray-300 rounded-lg p-2" key={restaurant.id}>
                                     <div className="flex h-full items-stretch">
                                         <div className="w-1/2 shrink-0">
                                             <img className="w-full h-full max-h-45 object-cover rounded-lg" src="/images/img-restaurant.jpeg" />
@@ -44,7 +47,7 @@ export default function List(){
                                                 {restaurant.address}, {restaurant.city} - {restaurant.CAP}
                                             </div>
                                             <div className="text-center mt-0">
-                                                <Button className="bg-blue-400 text-white p-2 rounded-4xl w-32 mt-4" text="Prenota" onClick={() => alert("Funzionalità in sviluppo")} />
+                                                <Button className="bg-blue-400 text-white p-2 rounded-4xl w-32 mt-4" text="Prenota" onClick={() => redirectRestaurant(restaurant.id)} />
                                             </div>
                                         </div>
                                     </div>
