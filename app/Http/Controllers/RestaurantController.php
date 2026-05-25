@@ -24,4 +24,22 @@ class RestaurantController extends Controller
             return Inertia::render('Restaurants/[id]', $data);
         }
     }
+
+    public function getMenu($id){
+        $r = Restaurant::find($id);
+        $dishes = $r->dishes()->get();
+        $dish = [];
+        $category = [];
+        foreach($dishes as $d){
+            $dish[$d['id']] = $d;
+            if(!array_key_exists($d['category_id'], $category)){
+                $category[$d['category_id']] = [
+                    'category' => $d['category_id'],
+                    'dishes' => []
+                ];
+            }
+            $category[$d['category_id']]['dishes'][] = $d->toArray();            
+        }
+        return response()->json(array_values($category), 200);
+    }
 }

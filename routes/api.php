@@ -24,4 +24,5 @@ Route::group(['prefix' => 'user'], function () {
 });
 Route::group(['prefix' => 'restaurants', 'middleware' => 'auth:sanctum'], function () {
     Route::get('list', [\App\Http\Controllers\RestaurantController::class, "list"]);
+    Route::get('{id}/menu', [\App\Http\Controllers\RestaurantController::class, "getMenu"]);
 });

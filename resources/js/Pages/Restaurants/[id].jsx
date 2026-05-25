@@ -1,5 +1,13 @@
+import { useEffect, useState } from 'react';
+
 export default function Restaurant(props){
-    console.log(props);
+    const [menu, setMenu] = useState([]);
+    useEffect(() => {
+        axios.get('/api/restaurants/'+props.id+'/menu')
+        .then((res) => {
+            setMenu(res.data);
+        });
+    }, []);
     return (
         <div>
             <div className="flex justify-center mt-4">
@@ -32,27 +40,22 @@ export default function Restaurant(props){
                                 </div>
                             </div>
                         )}
-                    </div>
-                    {/* <div className="grid grid-cols-3 gap-4 p-2">
-                        <div className="flex flex-col">
-                            <img className="w-full h-full max-h-90 object-cover rounded-lg" src="/images/img-restaurant.jpeg" />
-                        </div>
                         
-                        <div className="flex flex-col justify-between col-span-2">
-                            <div className="font-semibold text-lg">
-                                {props.nome}
-                            </div>               
-                            <div className="font-extralight pt-3 pb-3">
-                                <span className="bg-emerald-50 text-emerald-700  boder border-black rounded-lg font-medium p-2">
-                                    
-                                </span>
-                            </div>                             
-                            <div className="text-sm font-light">
-                                
-                            </div>
-                        </div>
-
-                    </div> */}
+                    </div>
+                    {menu?.length===0 ? (
+                        <div>vuoto</div>
+                    ) : (
+                        menu.map((category) => (
+                            <div className="p-5">
+                                <fieldset className='border border-gray-300 rounded-lg p-2'>
+                                    <legend>Categoria {category.category}</legend>
+                                    {category.dishes.map((dish) => (
+                                        <div>{dish.id} {dish.name}</div>
+                                    ))}
+                                </fieldset>
+                            </div>                            
+                        ))
+                    )}
                 </div>
             </div>
         </div>
