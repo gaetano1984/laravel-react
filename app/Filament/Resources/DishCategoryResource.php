@@ -6,10 +6,12 @@ use App\Filament\Resources\DishCategoryResource\Pages;
 use App\Filament\Resources\DishCategoryResource\RelationManagers;
 use App\Models\DishCategory;
 use Filament\Forms;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -26,6 +28,7 @@ class DishCategoryResource extends Resource
         return $form
             ->schema([
                 //
+                TextInput::make('dish_category')->label('Categoria piatto')
             ]);
     }
 
@@ -34,6 +37,7 @@ class DishCategoryResource extends Resource
         return $table
             ->columns([
                 //
+                TextColumn::make('dish_category')->sortable()
             ])
             ->filters([
                 //
