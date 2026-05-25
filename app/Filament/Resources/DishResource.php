@@ -32,15 +32,6 @@ class DishResource extends Resource
         return $form
             ->schema([
                 //
-                Select::make('restaurant_id')
-                    ->options(function(){
-                        $r = Restaurant::all();
-                        $rr = [];
-                        foreach($r as $r_temp){
-                            $rr[$r_temp['id']] = $r_temp['name'];
-                        }
-                        return $rr;
-                    }),
                 Select::make('category_id')
                     ->options(function(){
                         $c = DishCategory::all();
@@ -56,6 +47,11 @@ class DishResource extends Resource
                 TextInput::make('price'),
                 TextInput::make('discount_price'),
                 TextInput::make('vat_rate'),
+                Select::make('ingredients')
+                    ->relationship('ingredients', 'name')
+                    ->multiple()
+                    ->preload()
+                    ->label('Ingredienti')
             ]);
     }
 
@@ -64,7 +60,6 @@ class DishResource extends Resource
         return $table
             ->columns([
                 //
-                TextColumn::make('restaurant_id'),
                 TextColumn::make('category_id'),
                 TextColumn::make('name'),
                 TextColumn::make('description'),
