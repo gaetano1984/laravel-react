@@ -42,19 +42,10 @@ export default function Restaurant(props){
                                         </div>
                                     </div>
                                 </div>
-                                <div className="grid grid-cols-1 mt-10  p-2">
+                                <div className="grid grid-cols-1 mt-10 p-2">
                                     <div className="flex flex-col text-center">
                                         Menu
-                                    </div>    
-                                    {menu?.length === 0 ? (
-                                        <div>
-                                            non ci sono piatti
-                                        </div>
-                                    ) : (
-                                        menu.map((category) => (
-                                            <div>{category.id} - {category.category}</div>
-                                        ))
-                                    )}                                
+                                    </div>                              
                                 </div>
                             </div>                            
                         )}
@@ -67,9 +58,23 @@ export default function Restaurant(props){
                             <div className="p-5">
                                 <fieldset className='border border-gray-300 rounded-lg p-2'>
                                     <legend>Categoria {category.category}</legend>
-                                    {category.dishes.map((dish) => (
-                                        <div>{dish.id} {dish.name}</div>
-                                    ))}
+                                    <div className="grid grid-cols-2 p-2 gap-2">
+                                        {category.dishes.map((dish) => (
+                                            <div className="w-full max-w-4xl border border-gray-300 rounded-lg">
+                                                <div className="bg-blue-300 p-2 text-center font-semibold">
+                                                    {dish.name}
+                                                </div>
+                                                <div className="grid grid-cols-3">
+                                                    <div className="p-2">
+                                                        {dish.description}
+                                                    </div>
+                                                    <div className="p-2 text-right">
+                                                        {dish.price}&euro;
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>                                    
                                 </fieldset>
                             </div>                            
                         ))

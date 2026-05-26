@@ -40,6 +40,6 @@ class RestaurantController extends Controller
             }
             array_push($dish[$m['category_id']]['dishes'], $m);
         }
-        return response()->json(['menu' => $dish], 200);
+        return response()->json(['menu' => array_values($dish)], 200);
     }
 }
