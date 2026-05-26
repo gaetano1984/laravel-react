@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { CartContext } from "@/context/CartContext";
 
 export default function Restaurant(props){
+    const {cart, addToCart, getCartTotal} = useContext(CartContext);
     const [menu ,setMenu] = useState([]);
     useEffect(() => {
         axios.get('/api/restaurants/'+props.id+'/menu')
@@ -12,17 +14,17 @@ export default function Restaurant(props){
     }, []);
     return (
         <div>
-            <div className="flex justify-center mt-4">
+            <div className="flex justify-center mt-4 gap-2">
                 <div className="w-full max-w-4xl border border-gray-300 rounded-lg">
                     <div className="bg-blue-300 p-2 text-center font-semibold">
                         Info del ristorante
                     </div>
                     <div className="p-2">
                         {props.error !== null && (
-                            <div>{props.error}</div>
+                            <div key="error">{props.error}</div>
                         )}
                         {props.hasOwnProperty('error')===false && (
-                            <div>
+                            <div key="menu_heading">
                                 <div className="grid grid-cols-3 gap-4 p-2">
                                     <div className="flex flex-col">
                                         <img className="w-full h-full max-h-90 object-cover rounded-lg" src="/images/img-restaurant.jpeg" />
@@ -71,6 +73,11 @@ export default function Restaurant(props){
                                                     <div className="p-2 text-right">
                                                         {dish.price}&euro;
                                                     </div>
+                                                    <div className="p-2 text-right">
+                                                        <button className="bg-blue-300 p-2 text-white" onClick={() => addToCart(dish)}>
+                                                            Aggiungi
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         ))}
@@ -79,6 +86,42 @@ export default function Restaurant(props){
                             </div>                            
                         ))
                     )}
+                </div>
+                <div className="w-1/6 max-md border border-gray-300 rounded-lg">
+                    <div className="bg-blue-300 p-2 text-center font-semibold">
+                        Carrello
+                    </div>
+                    <div className="p-2">
+                        {cart?.length===0 ? (
+                            <>
+                                Il carrello è vuoto
+                            </>
+                        ) : (
+                            <div className="p-4 flex flex-col gap-4">
+                                <div className="divide-y divide-gray-100">
+                                    {cart.map((item) => (
+                                        <div key={item.id} className="py-3 flex justify-between items-center text-sm">
+                                            <div className="flex flex-col">
+                                                <span className="font-semibold text-gray-800 capitalize">
+                                                    {item.name} (qta {item.quantity})
+                                                </span>
+                                                <span className="text-xs text-gray-400">
+                                                    {Number(item.price).toFixed(2)}€ l'uno
+                                                </span>
+                                            </div>                                            
+                                            <div className="flex flex-col">
+                                                {(item.price * item.quantity).toFixed(2)}&euro;
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                                <div className="border-t border-gray-300 pt-4 flex justify-between items-center font-bold text-lg mb-4">
+                                    <span>Totale:</span>
+                                    <span className="text-blue-600">{Number(getCartTotal()).toFixed(2)}€</span>
+                                </div>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
