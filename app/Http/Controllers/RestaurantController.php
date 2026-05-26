@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DishCategory;
 use Illuminate\Http\Request;
 use App\Models\Restaurant;
 use Inertia\Inertia;
@@ -25,21 +26,20 @@ class RestaurantController extends Controller
         }
     }
 
-    public function getMenu($id){
-        $r = Restaurant::find($id);
-        $dishes = $r->dishes()->get();
+    public function getMenu(int $id){
         $dish = [];
-        $category = [];
-        foreach($dishes as $d){
-            $dish[$d['id']] = $d;
-            if(!array_key_exists($d['category_id'], $category)){
-                $category[$d['category_id']] = [
-                    'category' => $d['category_id'],
-                    'dishes' => []
+        $r = Restaurant::findOrFail($id);
+        $menu = $r->dishes()->get()->toArray();
+        foreach($menu as $m){
+            if(!array_key_exists($m['category_id'], $dish)){
+                $dish[$m['category_id']] = [
+                    'id' => $m['category_id']
+                    ,'category' => DishCategory::find($m['category_id'])->dish_category
+                    ,'dishes' => []
                 ];
             }
-            $category[$d['category_id']]['dishes'][] = $d->toArray();            
+            array_push($dish[$m['category_id']]['dishes'], $m);
         }
-        return response()->json(array_values($category), 200);
+        return response()->json(['menu' => $dish], 200);
     }
 }
