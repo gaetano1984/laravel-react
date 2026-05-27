@@ -60,26 +60,20 @@ export default function Restaurant(props){
                             <div className="p-5">
                                 <fieldset className='border border-gray-300 rounded-lg p-2'>
                                     <legend>Categoria {category.category}</legend>
-                                    <div className="grid grid-cols-2 p-2 gap-2">
+                                    <div className="grid grid-cols-6 p-2 gap-2">
                                         {category.dishes.map((dish) => (
-                                            <div className="w-full max-w-4xl border border-gray-300 rounded-lg">
-                                                <div className="bg-blue-300 p-2 text-center font-semibold">
-                                                    {dish.name}
+                                            <>
+                                                <div>
+                                                    {String(dish.name+' ').padEnd(35, ' ')}
                                                 </div>
-                                                <div className="grid grid-cols-3">
-                                                    <div className="p-2">
-                                                        {dish.description}
-                                                    </div>
-                                                    <div className="p-2 text-right">
-                                                        {dish.price}&euro;
-                                                    </div>
-                                                    <div className="p-2 text-right">
-                                                        <button className="bg-blue-300 p-2 text-white" onClick={() => addToCart(dish)}>
-                                                            Aggiungi
-                                                        </button>
-                                                    </div>
+                                                
+                                                <div>
+                                                    {String(dish.price).padStart(10, ' ')}&euro;
                                                 </div>
-                                            </div>
+                                                <div>
+                                                    <button onClick={(() => addToCart(dish))}>+</button>
+                                                </div>
+                                            </>
                                         ))}
                                     </div>                                    
                                 </fieldset>
