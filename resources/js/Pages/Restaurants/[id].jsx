@@ -1,10 +1,20 @@
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { CartContext } from "@/context/CartContext";
+import Button from "@/Components/Button";
 
 export default function Restaurant(props){
     const {cart, addToCart, getCartTotal} = useContext(CartContext);
     const [menu ,setMenu] = useState([]);
+    const placeOrder = () => {
+        axios.post('/api/order/place', cart)
+        .then((success) => {
+            window.location.href=success.data.url;
+        })
+        .cath((error) => {
+            console.log(error);
+        })
+    }
     useEffect(() => {
         axios.get('/api/restaurants/'+props.id+'/menu')
         .then((res) => {
@@ -112,6 +122,9 @@ export default function Restaurant(props){
                                 <div className="border-t border-gray-300 pt-4 flex justify-between items-center font-bold text-lg mb-4">
                                     <span>Totale:</span>
                                     <span className="text-blue-600">{Number(getCartTotal()).toFixed(2)}€</span>
+                                </div>
+                                <div className="text-center">
+                                    <Button onClick={placeOrder}  className="bg-blue-400 p-4 text-white rounded-lg" text="Ordina" />
                                 </div>
                             </div>
                         )}

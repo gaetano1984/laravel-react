@@ -26,3 +26,6 @@ Route::group(['prefix' => 'restaurants', 'middleware' => 'auth:sanctum'], functi
     Route::get('list', [\App\Http\Controllers\RestaurantController::class, "list"]);
     Route::get('/{id}/menu', [\App\Http\Controllers\RestaurantController::class, "getMenu"]);
 });
+Route::group(['prefix' => 'order', 'middleware' => 'auth:sanctum'], function(){
+    Route::post('place', [\App\Http\Controllers\RestaurantController::class, "placeOrder"]);
+});
