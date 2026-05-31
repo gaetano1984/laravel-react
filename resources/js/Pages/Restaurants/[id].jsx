@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { CartContext } from "@/context/CartContext";
 import Button from "@/Components/Button";
+import Menu from "@/Pages/Restaurants/Menu";
 
 export default function Restaurant(props){
     const {cart, addToCart, getCartTotal} = useContext(CartContext);
@@ -63,33 +64,7 @@ export default function Restaurant(props){
                         )}
                         
                     </div>
-                    {menu?.length===0 ? (
-                        <div>vuoto</div>
-                    ) : (
-                        menu.map((category) => (
-                            <div className="p-5">
-                                <fieldset className='border border-gray-300 rounded-lg p-2'>
-                                    <legend>Categoria {category.category}</legend>
-                                    <div className="grid grid-cols-6 p-2 gap-2">
-                                        {category.dishes.map((dish) => (
-                                            <>
-                                                <div>
-                                                    {String(dish.name+' ').padEnd(35, ' ')}
-                                                </div>
-                                                
-                                                <div>
-                                                    {String(dish.price).padStart(10, ' ')}&euro;
-                                                </div>
-                                                <div>
-                                                    <button onClick={(() => addToCart(dish))}>+</button>
-                                                </div>
-                                            </>
-                                        ))}
-                                    </div>                                    
-                                </fieldset>
-                            </div>                            
-                        ))
-                    )}
+                    <Menu menu={menu} />
                 </div>
                 <div className="w-1/6 max-md border border-gray-300 rounded-lg">
                     <div className="bg-blue-300 p-2 text-center font-semibold">
