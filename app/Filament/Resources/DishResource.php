@@ -18,6 +18,7 @@ use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Filters\Filter;
 
 class DishResource extends Resource
 {
@@ -60,7 +61,7 @@ class DishResource extends Resource
         return $table
             ->columns([
                 //
-                TextColumn::make('category_id'),
+                TextColumn::make('category.dish_category'),
                 TextColumn::make('name'),
                 TextColumn::make('description'),
                 TextColumn::make('image_url'),
@@ -70,6 +71,17 @@ class DishResource extends Resource
             ])
             ->filters([
                 //
+                Filter::make('dish_filter')->form([
+                    Select::make('category_filter')->options(function(){
+                        $cat = DishCategory::all();
+                        $cat = $cat->pluck('dish_category', 'id');
+                        return $cat;
+                    })
+                ])->query(function(Builder $query, $data){
+                    $query->when($data['category_filter'], function(Builder $query, $data){
+                       $query->where('category_id', $data);
+                    });
+                })
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
