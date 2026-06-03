@@ -33,7 +33,7 @@ export default function List(){
                                     <div key={restaurant.id} className="border border-gray-300 p-2 rounded-lg">
                                         <div className="h-48 w-full relative">
                                             <img src={"https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500&auto=format&fit=crop&q=60"} className="h-full w-full object-cover" />
-                                            <span className="absolute top-3 left-3 bg-gray-300 p-2 rounded-4xl text-xs">Restaurant</span>
+                                            <span className="absolute top-3 left-3 bg-gray-300 p-2 rounded-4xl text-xs">{restaurant.type}</span>
                                         </div>
                                         <div className="p-5 pb-1">
                                             <span className="font-bold">{restaurant.name}</span>
