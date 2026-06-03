@@ -29,29 +29,23 @@ export default function List(){
                             </div>                            
                         ) : (
                             restaurants.map((restaurant) => (
-                                <div className="bg-white border border-gray-300 rounded-lg p-2" key={restaurant.id}>
-                                    <div className="flex h-full items-stretch">
-                                        <div className="w-1/2 shrink-0">
-                                            <img className="w-full h-full max-h-45 object-cover rounded-lg" src="/images/img-restaurant.jpeg" />
+                                <>
+                                    <div key={restaurant.id} className="border border-gray-300 p-2 rounded-lg">
+                                        <div className="h-48 w-full relative">
+                                            <img src={"https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500&auto=format&fit=crop&q=60"} className="h-full w-full object-cover" />
+                                            <span className="absolute top-3 left-3 bg-gray-300 p-2 rounded-4xl text-xs">Restaurant</span>
                                         </div>
-                                        <div className="flex-1 p-2 flex flex-col justify-between pl-5">
-                                            <div className="font-semibold text-lg">
-                                                {restaurant.name}
-                                            </div>               
-                                            <div className="font-extralight pt-3 pb-3">
-                                                <span className="bg-emerald-50 text-emerald-700  boder border-black rounded-lg font-medium p-2">
-                                                    {restaurant.type}
-                                                </span>
-                                            </div>                             
-                                            <div className="text-sm font-light">
-                                                {restaurant.address}, {restaurant.city} - {restaurant.CAP}
-                                            </div>
-                                            <div className="text-center mt-0">
-                                                <Button className="bg-blue-400 text-white p-2 rounded-4xl w-32 mt-4" text="Prenota" onClick={() => redirectRestaurant(restaurant.id)} />
-                                            </div>
+                                        <div className="p-5 pb-1">
+                                            <span className="font-bold">{restaurant.name}</span>
+                                        </div>
+                                        <div className="pl-4 pb-3">
+                                            📍<span className="font-light">{restaurant.address}</span>
+                                        </div>
+                                        <div className="">
+                                            <Button className="bg-blue-400 text-white w-full p-2 rounded-md" text="vedi menu" onClick={() => redirectRestaurant(restaurant.id)} />
                                         </div>
                                     </div>
-                                </div>
+                                </>
                             ))                            
                         )}
                     </div>                    
