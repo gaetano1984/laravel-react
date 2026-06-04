@@ -28,13 +28,32 @@ export const CartProvider = ({ children }) => {
         });
     };
 
+    const removeFromCart = (dish) => {
+        setCart((prevCart) => {
+            const itemExists = prevCart.find(item => item.id === dish.id);
+            if(itemExists){
+                prevCart = prevCart.map((item) => {
+                    if(item.id === dish.id){
+                        item.quantity = item.quantity-1;
+                        if(item.quantity>0){
+                            return item;
+                        }                        
+                    }
+                    return item;
+                });
+                return prevCart.filter(item => item.quantity > 0);
+            }
+            return prevCart;
+        });
+    };
+
     const getCartTotal = () => {
         return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
     };
 
     return (
         // Distribuiamo il carrello e la funzione addToCart a tutta l'app
-        <CartContext.Provider value={{ cart, addToCart , getCartTotal}}>
+        <CartContext.Provider value={{ cart, addToCart, getCartTotal, removeFromCart}}>
             {children}
         </CartContext.Provider>
     );

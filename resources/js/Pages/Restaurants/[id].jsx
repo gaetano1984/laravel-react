@@ -5,7 +5,7 @@ import Button from "@/Components/Button";
 import Menu from "@/Pages/Restaurants/Menu";
 
 export default function Restaurant(props){
-    const {cart, addToCart, getCartTotal} = useContext(CartContext);
+    const {cart, addToCart, removeFromCart, getCartTotal} = useContext(CartContext);
     const [menu ,setMenu] = useState([]);
     const placeOrder = () => {
         axios.post('/api/order/place', {cart: cart, restaurant_id: props.id})
@@ -72,9 +72,15 @@ export default function Restaurant(props){
                     </div>
                     <div className="p-2">
                         {cart?.length===0 ? (
-                            <>
-                                Il carrello è vuoto
-                            </>
+                            <div class="flex items-center justify-center">
+                                <div className="p-4 flex flex-col gap-4 text-center">
+                                    <span className="p-3 font-semibold">
+                                        Non hai selezionato alcun piatto.
+                                    </span>                                    
+                                    Esplora il nostro menu e aggiungi uno dei tuoi piatti preferiti
+                                </div>
+                            </div>
+                            
                         ) : (
                             <div className="p-4 flex flex-col gap-4">
                                 <div className="divide-y divide-gray-100">
@@ -90,6 +96,10 @@ export default function Restaurant(props){
                                             </div>                                            
                                             <div className="flex flex-col">
                                                 {(item.price * item.quantity).toFixed(2)}&euro;
+                                            </div>
+                                            <div className="flex flex-col gap-1">
+                                                <button key="add" className="bg-blue-300  rounded-4xl pl-2 pr-2 text-white" onClick={(() => removeFromCart(item))}>-</button>
+                                                <button key="remove" className="ml-1 bg-blue-300  rounded-4xl pl-2 pr-2 text-white" onClick={(() => addToCart(item))}>+</button>
                                             </div>
                                         </div>
                                     ))}
