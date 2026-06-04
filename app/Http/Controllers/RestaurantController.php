@@ -63,7 +63,7 @@ class RestaurantController extends Controller
         $o->save();
 
         $session = $client->checkout->sessions->create([
-            'success_url' => 'https://google.it',
+            'success_url' => route('payment_ok'),
             'line_items' => $line_items,
             'mode' => 'payment'
         ]);

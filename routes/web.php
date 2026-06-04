@@ -43,5 +43,8 @@ Route::group(['prefix' => 'restaurants'], function () {
     /* Route::get('{id}', fn() => Inertia::render('Restaurants/[id]', ['nome' => 'pippo']))->where('id', '[0-9]'); */
     Route::get('{id}', [RestaurantController::class, 'info'])->where('id', '[0-9]');
 });
+Route::group(['prefix' => 'payments'], function(){
+    Route::get('ok', fn() => Inertia::render('Payment/OK'))->name('payment_ok');
+});
 
 require __DIR__.'/auth.php';
