@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Restaurant;
 use Inertia\Inertia;
 use Stripe\StripeClient;
+use App\Models\Order;
 
 class RestaurantController extends Controller
 {
@@ -53,7 +54,13 @@ class RestaurantController extends Controller
                 'price' => $a['price_id']
                 ,'quantity' => $a['quantity']
             ];
-        }, $request->all());
+        }, $request->get('cart'));
+
+        $o = new Order();
+        $o->user_id = auth()->user()->id;
+        $o->restaurant_id = $request->get('restaurant_id');
+        $o->order = json_encode($line_items, true);
+        $o->save();
 
         $session = $client->checkout->sessions->create([
             'success_url' => 'https://google.it',

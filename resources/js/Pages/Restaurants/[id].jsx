@@ -8,7 +8,7 @@ export default function Restaurant(props){
     const {cart, addToCart, getCartTotal} = useContext(CartContext);
     const [menu ,setMenu] = useState([]);
     const placeOrder = () => {
-        axios.post('/api/order/place', cart)
+        axios.post('/api/order/place', {cart: cart, restaurant_id: props.id})
         .then((success) => {
             window.location.href=success.data.url;
         })
