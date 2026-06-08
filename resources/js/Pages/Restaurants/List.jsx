@@ -30,9 +30,9 @@ export default function List(){
                         ) : (
                             restaurants.map((restaurant) => (
                                 <>
-                                    <div key={restaurant.id} className="border border-gray-300 p-2 rounded-lg">
+                                    <div key={restaurant.id} className="border border-gray-300 rounded-lg">
                                         <div className="h-48 w-full relative">
-                                            <img src={"https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500&auto=format&fit=crop&q=60"} className="h-full w-full object-cover" />
+                                            <img src={"https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500&auto=format&fit=crop&q=60"} className="h-full w-full object-cover rounded-t-lg" />
                                             <span className="absolute top-3 left-3 bg-gray-300 p-2 rounded-4xl text-xs">{restaurant.type}</span>
                                         </div>
                                         <div className="p-5 pb-1">
@@ -41,7 +41,7 @@ export default function List(){
                                         <div className="pl-4 pb-3">
                                             📍<span className="font-light">{restaurant.address}</span>
                                         </div>
-                                        <div className="">
+                                        <div className="p-2">
                                             <Button className="bg-blue-400 text-white w-full p-2 rounded-md" text="vedi menu" onClick={() => redirectRestaurant(restaurant.id)} />
                                         </div>
                                     </div>
