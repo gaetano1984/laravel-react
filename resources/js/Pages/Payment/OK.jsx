@@ -8,8 +8,11 @@ export default function Payment(){
                     </div>
                     <div className="grid grid-cols-1 gap-4 p-2">
                         Pagamento andato a buon fine.<br/>
-                        L'ordine vi verà consegnato a breve
+                        L'ordine vi verà consegnato a breve <br/>
                     </div>                    
+                    <div className="grid grid-cols-1 gap-4 p-2 text-center">
+                        <a href="/restaurants/list">Torna alla home</a>
+                    </div>
                 </div>
             </div>
         </div>
